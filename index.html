@@ -1,99 +1,75 @@
-<!doctype html>
-<html lang="en" dir="auto" class="light">
-    <head>
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-KV9538TF');
-        </script>
-        <!-- End Google Tag Manager -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traders Scheme | Automated Trading</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #060b13; color: #ffffff; font-family: sans-serif; }
+    .btn-blue { background-color: #00a8ff; color: #ffffff; }
+    .btn-blue:hover { background-color: #0088cc; }
+    .card-dark { background-color: #0d1522; border: 1px solid #1a2638; }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen justify-between">
 
-        <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="<%= assetPrefix %>/deriv-logo.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="title" content="Automate Your Trades | Deriv Bot" />
-        <meta
-            name="description"
-            content="Import your current bot or learn how to create a trading bot from scratch with our detailed guides, FAQs, and tutorials. Start with a quick strategy!"
-        />
-        <meta property="og:title" content="Deriv Bot" />
-        <meta
-            property="og:description"
-            content="Import your current bot or learn how to create a trading bot from scratch with our detailed guides, FAQs, and tutorials. Start with a quick strategy!"
-        />
-        <title>Automate Your Trades | Deriv Bot</title>
-        <style>
-            :root {
-                font-size: 62.5%;
-            }
-        </style>
-    </head>
+  <!-- Header -->
+  <header class="flex justify-between items-center px-6 py-4 border-b border-gray-800">
+    <div class="flex items-center gap-2">
+      <span class="text-xl font-bold tracking-wide">traders<span class="text-blue-400">scheme</span></span>
+      <span class="text-xs text-gray-400 font-light">powered by deriv</span>
+    </div>
+    <div class="flex gap-3">
+      <a href="https://oauth.deriv.com/oauth2/authorize?app_id=YOUR_APP_ID&l=EN&brand=deriv" class="px-4 py-2 text-sm border border-gray-700 rounded-lg hover:bg-gray-800">Log In</a>
+      <a href="https://beacons.ai/talalawilly" class="px-4 py-2 text-sm btn-blue rounded-lg font-medium">Get Started</a>
+    </div>
+  </header>
 
-    <body class="body theme theme--light">
-        <!-- Google Tag Manager (noscript) -->
-        <noscript
-            ><iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-KV9538TF"
-                height="0"
-                width="0"
-                style="display: none; visibility: hidden"
-            ></iframe
-        ></noscript>
-        <!-- End Google Tag Manager (noscript) -->
+  <!-- Market Ticker -->
+  <div class="bg-slate-900 border-b border-gray-800 text-xs py-2 px-6 flex justify-between overflow-x-auto text-gray-300">
+    <div>Crash 500 Index <span class="text-red-500">-0.94%</span></div>
+    <div>Step Index <span class="text-green-400">+0.41%</span></div>
+    <div>Range Break 100 <span class="text-green-400">+1.12%</span></div>
+  </div>
 
-        <div id="modal_root" class="modal-root"></div>
-        <div id="popup_root" class="popup-root"></div>
-        <div id="root"></div>
-        <!-- LiveChat script -->
-        <script type="text/javascript" defer>
-            window.__lc = window.__lc || {};
-            window.__lc.license = 12049137;
-            window.__lc.asyncInit = true;
-            (function (n, t, c) {
-                function i(n) {
-                    return e._h ? e._h.apply(null, n) : e._q.push(n);
-                }
-                var e = {
-                    _q: [],
-                    _h: null,
-                    _v: '2.0',
-                    on: function () {
-                        i(['on', c.call(arguments)]);
-                    },
-                    once: function () {
-                        i(['once', c.call(arguments)]);
-                    },
-                    off: function () {
-                        i(['off', c.call(arguments)]);
-                    },
-                    get: function () {
-                        if (!e._h) throw new Error('[LiveChatWidget] You can’t use getters before load.');
-                        return i(['get', c.call(arguments)]);
-                    },
-                    call: function () {
-                        i(['call', c.call(arguments)]);
-                    },
-                    init: function () {
-                        setTimeout(() => {
-                            var n = t.createElement('script');
-                            ((n.async = !0),
-                                (n.type = 'text/javascript'),
-                                (n.src = 'https://cdn.livechatinc.com/tracking.js'),
-                                t.head.appendChild(n));
-                        }, 3000);
-                    },
-                };
-                (!n.__lc.asyncInit && e.init(), (n.LiveChatWidget = n.LiveChatWidget || e));
-            })(window, document, [].slice);
-        </script>
-        <!-- End LiveChat script -->
-    </body>
+  <!-- Hero Section -->
+  <main class="flex-grow flex flex-col items-center justify-center text-center px-6 py-12">
+    <div class="inline-block px-4 py-1 mb-6 rounded-full text-xs font-semibold bg-blue-950 text-blue-400 border border-blue-800">
+      FREE STRATEGIES. REAL MARKET TOOLS.
+    </div>
+    
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
+      Trade <span class="text-blue-400">Smarter</span>
+    </h1>
+
+    <!-- Action Buttons -->
+    <div class="w-full max-w-sm flex flex-col gap-4 mb-8">
+      <a href="https://oauth.deriv.com/oauth2/authorize?app_id=YOUR_APP_ID&l=EN&brand=deriv" class="w-full py-4 btn-blue rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
+        Log In and Trade
+      </a>
+      
+      <a href="https://beacons.ai/talalawilly" class="w-full py-4 bg-gray-100 text-gray-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-white">
+        Create Free Account
+      </a>
+    </div>
+
+    <!-- Feature Grid -->
+    <div class="grid grid-cols-2 gap-4 w-full max-w-md text-left mt-6">
+      <div class="card-dark p-4 rounded-xl">
+        <div class="text-lg font-bold">Free</div>
+        <div class="text-xs text-gray-400">BOT TEMPLATES</div>
+      </div>
+      <div class="card-dark p-4 rounded-xl">
+        <div class="text-lg font-bold">24/7</div>
+        <div class="text-xs text-gray-400">SYNTHETIC MARKETS</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-6 text-xs text-gray-500 border-t border-gray-800">
+    © 2026 Traders Scheme. All rights reserved.
+  </footer>
+
+</body>
 </html>
