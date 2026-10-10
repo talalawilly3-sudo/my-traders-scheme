@@ -1,119 +1,82 @@
-import { lazy, Suspense } from 'react';
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router';
-import { cleanupUrl, handleOAuthCallback } from '@/external/deriv-core';
-import ChunkLoader from '@/components/loader/chunk-loader';
-import LocalStorageSyncWrapper from '@/components/localStorage-sync-wrapper';
-import RoutePromptDialog from '@/components/route-prompt-dialog';
-import { useAccountSwitching } from '@/hooks/useAccountSwitching';
-import { useLanguageFromURL } from '@/hooks/useLanguageFromURL';
-import { StoreProvider } from '@/hooks/useStore';
-import { isPreviewMode, PREVIEW_BASE_PATH } from '@/utils/is-preview-mode';
-import { localize, TranslationProvider } from '@deriv-com/translations';
-import CoreStoreProvider from './CoreStoreProvider';
-import i18nInstance from './i18n';
-import './app-root.scss';
 
-const Layout = lazy(() => import('../components/layout'));
-const AppRoot = lazy(() => import('./app-root'));
+export default function App() {
+  return (
+    <div className="flex flex-col min-h-screen justify-between bg-[#060b13] text-white font-sans">
+      {/* Header */}
+      <header className="flex justify-between items-center px-6 py-4 border-b border-gray-800">
+        <div className="flex items-center gap-2">
+          <span className="text-xl font-bold tracking-wide">
+            traders<span className="text-blue-400">scheme</span>
+          </span>
+          <span className="text-xs text-gray-400 font-light">powered by deriv</span>
+        </div>
+        <div className="flex gap-3">
+          <a 
+            href="https://oauth.deriv.com/oauth2/authorize?app_id=YOUR_APP_ID&l=EN&brand=deriv" 
+            className="px-4 py-2 text-sm border border-gray-700 rounded-lg hover:bg-gray-800"
+          >
+            Log In
+          </a>
+          <a 
+            href="https://beacons.ai/talalawilly" 
+            className="px-4 py-2 text-sm bg-blue-500 hover:bg-blue-600 rounded-lg font-medium"
+          >
+            Get Started
+          </a>
+        </div>
+      </header>
 
-/**
- * Component wrapper to handle language URL parameter
- * Uses the useLanguageFromURL hook to process language switching
- */
-const LanguageHandler = ({ children }: { children: React.ReactNode }) => {
-    useLanguageFromURL();
-    return <>{children}</>;
-};
+      {/* Market Ticker */}
+      <div className="bg-slate-900 border-b border-gray-800 text-xs py-2 px-6 flex justify-between overflow-x-auto text-gray-300">
+        <div>Crash 500 Index <span className="text-red-500">-0.94%</span></div>
+        <div>Step Index <span className="text-green-400">+0.41%</span></div>
+        <div>Range Break 100 <span className="text-green-400">+1.12%</span></div>
+      </div>
 
-// The static preview build is served under /bot/preview (see rsbuild.config.ts
-// assetPrefix), so React Router must resolve routes under that prefix. Standalone
-// partner deploys are served at the root, so no basename there.
-const routerBasename = isPreviewMode() ? PREVIEW_BASE_PATH : undefined;
+      {/* Hero Section */}
+      <main className="flex-grow flex flex-col items-center justify-center text-center px-6 py-12">
+        <div className="inline-block px-4 py-1 mb-6 rounded-full text-xs font-semibold bg-blue-950 text-blue-400 border border-blue-800">
+          FREE STRATEGIES. REAL MARKET TOOLS.
+        </div>
+        
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-8 tracking-tight">
+          Trade <span className="text-blue-400">Smarter</span>
+        </h1>
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route
-            path='/'
-            element={
-                <Suspense
-                    fallback={<ChunkLoader message={localize('Please wait while we connect to the server...')} />}
-                >
-                    <TranslationProvider defaultLang='EN' i18nInstance={i18nInstance}>
-                        <LanguageHandler>
-                            <StoreProvider>
-                                <LocalStorageSyncWrapper>
-                                    <RoutePromptDialog />
-                                    <CoreStoreProvider>
-                                        <Layout />
-                                    </CoreStoreProvider>
-                                </LocalStorageSyncWrapper>
-                            </StoreProvider>
-                        </LanguageHandler>
-                    </TranslationProvider>
-                </Suspense>
-            }
-        >
-            {/* All child routes will be passed as children to Layout */}
-            <Route index element={<AppRoot />} />
-            {/* App Builder embeds the template at /preview — render the same app shell */}
-            <Route path='preview' element={<AppRoot />} />
-        </Route>
-    ),
-    { basename: routerBasename }
-);
+        {/* Action Buttons */}
+        <div className="w-full max-w-sm flex flex-col gap-4 mb-8">
+          <a 
+            href="https://oauth.deriv.com/oauth2/authorize?app_id=YOUR_APP_ID&l=EN&brand=deriv" 
+            className="w-full py-4 bg-blue-500 hover:bg-blue-600 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg"
+          >
+            Log In and Trade
+          </a>
+          
+          <a 
+            href="https://beacons.ai/talalawilly" 
+            className="w-full py-4 bg-gray-100 text-gray-900 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-white"
+          >
+            Create Free Account
+          </a>
+        </div>
 
-/**
- * Main App component
- *
- * Responsibilities:
- * 1. OAuth callback handling (via vendored deriv-core handleOAuthCallback)
- * 2. Account switching from URL (via useAccountSwitching hook)
- * 3. Router provider setup
- */
-function App() {
-    // Handle account switching via URL parameter
-    useAccountSwitching();
+        {/* Feature Grid */}
+        <div className="grid grid-cols-2 gap-4 w-full max-w-md text-left mt-6">
+          <div className="bg-[#0d1522] border border-[#1a2638] p-4 rounded-xl">
+            <div className="text-lg font-bold">Free</div>
+            <div className="text-xs text-gray-400">BOT TEMPLATES</div>
+          </div>
+          <div className="bg-[#0d1522] border border-[#1a2638] p-4 rounded-xl">
+            <div className="text-lg font-bold">24/7</div>
+            <div className="text-xs text-gray-400">SYNTHETIC MARKETS</div>
+          </div>
+        </div>
+      </main>
 
-    React.useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (!urlParams.has('code')) return;
-
-        const handleCallback = async () => {
-            try {
-                const authInfo = await handleOAuthCallback(window.location.href, {
-                    clientId: process.env.NEXT_PUBLIC_DERIV_APP_ID || '',
-                    redirectUri: window.location.origin,
-                    scopes: 'trade',
-                });
-
-                const { DerivWSAccountsService } = await import('@/services/derivws-accounts.service');
-                const accounts = await DerivWSAccountsService.fetchAccountsList(authInfo.access_token);
-
-                if (accounts && accounts.length > 0) {
-                    DerivWSAccountsService.storeAccounts(accounts);
-                    const firstAccount = accounts[0];
-                    localStorage.setItem('active_loginid', firstAccount.account_id);
-                    const isDemo =
-                        firstAccount.account_id.startsWith('VRT') || firstAccount.account_id.startsWith('VRTC');
-                    localStorage.setItem('account_type', isDemo ? 'demo' : 'real');
-
-                    const { api_base } = await import('@/external/bot-skeleton');
-                    await api_base.init(true);
-                } else {
-                    console.error('No accounts returned after authentication');
-                }
-            } catch (error) {
-                console.error('OAuth callback error:', error);
-            } finally {
-                cleanupUrl(window.location.origin);
-            }
-        };
-
-        handleCallback();
-    }, []);
-
-    return <RouterProvider router={router} />;
+      <footer className="text-center py-6 text-xs text-gray-500 border-t border-gray-800">
+        © 2026 Traders Scheme. All rights reserved.
+      </footer>
+    </div>
+  );
 }
-
-export default App;
